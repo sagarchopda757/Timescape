@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timescape | admin panel</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+
+<body class="sidebar-mini">
+    <% include ../layouts/navbar.ejs %>
+
+
+
+        <% include ../layouts/sidebar.ejs %>
+            <!-- /.sidebar -->
+            </aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Product Details</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+
+                <section class="content">
+                    <div class="row">
+                        <div class="col-md-4  ">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Product Details</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="inputName">Product Name</label>
+                                        <input type="text" id="prod_name" class="form-control"
+                                            value="<%=rows[0].prod_name%>" disabled>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputName">Product price</label>
+                                        <input type="number" id="prod_price" class="form-control"
+                                            value="<%=rows[0].prod_price%>" disabled>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Product Brand</label>
+                                        <input type="text" id="prod_brand" class="form-control"
+                                            value="<%=rows[0].prod_brand%>" disabled>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Product Description</label><br>
+                                        <textarea id="prod_description" class="form-control" cols="40" rows="2"
+                                            disabled><%=rows[0].prod_description%></textarea>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Category</label><br>
+                                        <!-- <select id="cat_id" class="form-control" disabled>
+                                          
+                                        </select> -->
+                                        <input type="text" id="cat_id" class="form-control" value="<%=rows[0].cat_id%>"
+                                            disabled>
+
+                                    </div>
+
+
+                                    <!-- <div class="form-group">
+                                        <label for="inputName">Products Status</label><br>
+                                        <select id="prod_status" class="form-control" disabled>
+                                            <option value="active">active</option>
+                                            <option value="inactive">inactive</option>
+                                        </select>
+
+                                    </div> -->
+
+                                    <div class="row">
+                                        <div class="col-12 project-actions text-right">
+                                            <!-- <a id="confirm" class="btn btn-primary btn-sm">
+                                                confirm
+                                            </a> -->
+                                            <a id="cancel" class="btn btn-danger btn-sm" href="/products">
+                                                cancel
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                    </div>
+
+                    <!-- table for display product deatils -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Product Details</h3>
+
+                            <div class="card-tools">
+                                <button class="btn btn-block bg-gradient-primary float-right btn-sm"
+                                    style="width: 300px;" id="add">ADD</button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped projects">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 1%">
+                                            id
+                                        </th>
+                                        <th style="width: 10%">
+                                            Product Color
+                                        </th>
+                                        <th style="width: 10%">
+                                            Image
+                                        </th>
+                                        <th style="width: 9%">
+                                            Banner
+                                        </th>
+                                        <th style="width: 10%">
+                                            Quantity
+                                        </th>
+                                        <!-- <th style="width: 5%">
+                                            Category
+                                        </th>
+                                        <th style="width: 5%" class="text-center">
+                                            Status
+                                        </th>-->
+                                        <th style="width: 20%">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tr id="addproduct" style="display: none;">
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                        <select id="color_id" class="form-control">
+
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input id="image" type="file" accept="image/png,image/jpeg"
+                                            class="form-control">
+
+                                    </td>
+                                    <td>
+                                        <select id="banner">
+                                            <option value="yes">yes</option>
+                                            <option value="no">no</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input id="quantity" type="number" style="width:2cm">
+                                    </td>
+                                    <td class="project-actions text-right">
+                                        <a id="confirm" class="btn btn-primary btn-sm">
+                                            confirm
+                                        </a>
+                                        <a id="cancel1" class="btn btn-danger btn-sm">
+                                            cancel
+                                        </a>
+
+                                    </td>
+                                </tr>
+                                <tbody id="tablerow">
+                                    <% for (let i=0; i < rows[0].productdetails.length; i++) {%>
+
+                                        <% if (rows[0].productdetails[i].banner=='yes' ) {%>
+                                            <% badge="badge-success" %>
+                                                <% } else {%>
+                                                    <% badge="badge-danger" %>
+                                                        <% }%>
+                                                            <tr>
+                                                                <td>
+                                                                    <%i + 1%>
+                                                                </td>
+
+                                                                <td>
+                                                                    <div class="list-inline-item table-avatar">
+                                                                        <%=rows[0].productdetails[i].color_master.color_code
+                                                                            %>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <li class="list-inline-item">
+                                                                        <img alt="product image" class="table-avatar"
+                                                                            src="/images/product_images/<%=rows[0].productdetails[i].image%>">
+                                                                    </li>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="badge <%=badge%>"
+                                                                        onclick="return confirm('change status');"
+                                                                        href="/api/changeproductdetailsstatus?id=<%=rows[0].productdetails[i].id%>">
+                                                                        <%=rows[0].productdetails[i].banner%>
+                                                                    </a>
+                                                                </td>
+
+                                                                <td>
+                                                                    <%=rows[0].productdetails[i].quantity%>
+                                                                </td>
+
+                                                                <td class="project-actions text-right">
+                                                                    <a class="btn btn-info btn-sm"
+                                                                        href="/editproductdetails?id=<%=rows[0].productdetails[i].id%>&prod_det=<%=rows[0].productdetails[i].prod_id%>">
+                                                                        <i class="fas fa-pencil-alt">
+                                                                        </i>
+                                                                        Edit
+                                                                    </a>
+                                                                    <a class="btn btn-danger btn-sm"
+                                                                    onclick="return confirm('are you sure');"
+                                                                        href="/api/deleteproductsdetails?id=<%=rows[0].productdetails[i].id%>&prod_det=<%=rows[0].productdetails[i].prod_id%>">
+                                                                        <i class="fas fa-trash">
+                                                                        </i>
+                                                                        Delete
+                                                                    </a>
+                                                                </td>
+
+                                                            </tr>
+                                                            <% }%>
+                                                                <!--   <tr>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            <a>
+                                                Greca Logo Watch
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Created 01.01.2019
+                                            </small>
+                                        </td>
+                                        <td>
+
+                                            <li class="list-inline-item">
+                                                <img alt="Avatar" class="table-avatar" src="dist/img/0.jpg">
+                                            </li>
+
+                                        </td>
+                                        <td>
+                                            5000
+                                        </td>
+                                        <td>
+                                            Versace
+                                        </td>
+                                        <td>
+                                            <small> An amazing and handsome gents accessory, this Ronda Z60 Swiss watch
+                                                with a timeless bracelet design homes a striking 43 mm dial with a trio
+                                                of chronographs and slim hands powered by reliable quartz</small>
+                                        </td>
+                                        <td>
+                                            Luxury
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">no</span>
+                                        </td>
+                                        <td>
+
+                                            <li class="list-inline-item">
+                                                <img alt="color" class="table-avatar" src="dist/img/Black_colour.jpg">
+                                            </li>
+
+                                        </td>
+                                        <td>100 </td>
+                                        <td class="project-state">
+                                            <span class="badge badge-danger">inactive</span>
+                                        </td>
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                            <nav aria-label="...">
+
+                                <% let button=Math.ceil(count/10) %>
+
+                                    <ul class="pagination">
+
+                                        <% if (page <=1 ) { %>
+                                            <li class="page-item disabled">
+                                                <a id="prevpage1" class="page-link" tabindex="-1">Previous</a>
+                                            </li>
+                                            <% } else {%>
+                                                <li class="page-item">
+                                                    <a id="prevpage1" class="page-link" tabindex="-1"
+                                                        href="/productdetails?page=<%=Number(page) - 1%>">Previous</a>
+                                                </li>
+                                                <% } %>
+
+
+                                                    <% for (let i=0; i < button; i++) {%>
+                                                        <li class="page-item "><a class="page-link"
+                                                                href="/productdetails?page=<%= i+1 %>">
+                                                                <%= i+1 %>
+                                                            </a></li>
+                                                        <%}%>
+
+
+
+                                                            <% if (button> page) { %>
+                                                                <li class="page-item ">
+                                                                    <a id="nextpage1" class="page-link"
+                                                                        href="/productdetails?page=<%=Number(page) + 1%>">Next</a>
+                                                                </li>
+                                                                <% } else {%>
+                                                                    <li class="page-item disabled">
+                                                                        <a id="nextpage1" class="page-link">Next</a>
+                                                                    </li>
+                                                                    <% } %>
+                                    </ul>
+                            </nav>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
+
+                </section>
+
+
+
+            </div>
+            <!-- /.content-wrapper -->
+
+            <% include ../layouts/footer.ejs %>
+
+                <!-- REQUIRED SCRIPTS -->
+
+                <!-- jQuery -->
+                <script src="/plugins/jquery/jquery.min.js"></script>
+                <!-- <script src="/javascripts/products/productdetails.js"></script> -->
+                <script>
+
+                    $(document).ready(function () {
+                       
+                        $("#add").click(function () {
+                            $("#addproduct").show();
+                        });
+                        $("#confirm").click(function () {
+                            $("#addproduct").hide();
+                        });
+                        $("#cancel1").click(function () {
+                            $("#addproduct").hide()
+                        });
+                        // ________________________________________________get colors from color_master table
+                        $("#add").click(function () {
+                            $.ajax({
+                                type: "GET",
+                                url: "/api/getcolors",
+                            }).done(function (data) {
+                                if (data.sts) {
+                                    console.log(data);
+                                    event.preventDefault()
+                                    tabledata = ' ';
+                                    for (let i = 0; i < data.data.length; i++) {
+                                        tabledata += `<option value="${data.data[i].color_id}">${data.data[i].color_code}</option>`
+
+                                    }
+                                    // document.getElementById("")
+                                    $('#color_id').html(tabledata)
+                                }
+                            })
+                        });
+                        // ______________________________________________add products in product details
+                        $("#confirm").click(function () {
+                            let prod_id = "<%=rows[0].prod_id%>"
+                            var formdata = new FormData()
+                            formdata.append("color_id", $("#color_id").val())
+                            formdata.append("image", $("#image")[0].files[0])
+                            formdata.append("banner", $("#banner").val())
+                            formdata.append("quantity", $("#quantity").val())
+                            formdata.append("prod_id",prod_id)
+                            // console.log(formdata);
+                            $.ajax({
+                                type: "POST",
+                                url: `/api/addproductdetails`,
+                                contentType: false,
+                                processData: false,
+                                data: formdata
+                            }).done(function (data) {
+                                if (data.sts) {
+                                    alert('product details added successfully')
+                                    window.location.reload()
+                                } else {
+                                    alert('sometihng went wrong')
+                                }
+
+                            })
+                        })
+
+                    })
+                </script>
+                <!-- Bootstrap -->
+                <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <!-- AdminLTE -->
+                <script src="/dist/js/adminlte.js"></script>
+
+                <!-- OPTIONAL SCRIPTS -->
+                <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
+                <!-- AdminLTE for demo purposes -->
+                <!-- <script src="dist/js/demo.js"></script> -->
+                <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
+</body>
+
+</html>

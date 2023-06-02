@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timescape | admin panel</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+
+<body class="sidebar-mini">
+    <% include ../layouts/navbar.ejs %>
+
+
+
+        <% include ../layouts/sidebar.ejs %>
+            <!-- /.sidebar -->
+            </aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">User Detail</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+
+                <section class="content">
+                    <div class="row">
+                        <div class="col-md-4  ">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">User Detail</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="inputName">Name</label>
+                                       <input type="text" id="name" class="form-control" disabled>
+                                      
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputName">Email</label>
+                                        <input type="text" id="email" class="form-control" disabled>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Gender</label>
+                                        <input type="text" id="gender" class="form-control" disabled>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Mobile No</label>
+                                        <input type="text" id="mobileno" class="form-control" disabled>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Status</label>
+                                        <input type="text" id="user_status" class="form-control" disabled>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Verified</label>
+                                        <input type="text" id="isverified" class="form-control" disabled>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Last Active</label>
+                                        <input type="text" id="user_last_active" class="form-control" disabled>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Address</label><br>
+                                        <div id="address"></div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-12 project-actions text-right">
+                                            <!-- <a id="confirm" class="btn btn-primary btn-sm">
+                                                confirm
+                                            </a> -->
+                                            <a id="cancel" class="btn btn-danger btn-sm" href="/users">
+                                                cancel
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card --> 
+                        </div>
+                    </div>
+
+                    <!-- table for display product deatils -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Orders</h3>
+
+                            <!-- <div class="card-tools">
+                                <button class="btn btn-block bg-gradient-primary float-right btn-sm" style="width: 300px;"
+                                id="add">ADD</button>
+                            </div> -->
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped projects">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 1%">
+                                            id
+                                        </th>
+                                        <th style="width: 20%">
+                                            Address
+                                        </th>
+                                        <th style="width: 10%">
+                                            Product Name
+                                        </th>
+                                        <th style="width: 9%">
+                                            Color
+                                        </th>
+                                        <th style="width: 10%">
+                                            Shipping Type
+                                        </th>
+                                        <!-- <th style="width: 5%">
+                                            Category
+                                        </th>
+                                        <th style="width: 5%" class="text-center">
+                                            Status
+                                        </th>-->
+                                        <th style="width: 20%"> 
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <!-- <tr id="addproduct" style="display: none;">
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        <select id="color_id" class="form-control">
+                                           
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input id="image" type="file" accept="image/png,image/jpeg" class="form-control">
+
+                                    </td>
+                                    <td>
+                                        <select id="banner">
+                                            <option value="yes">yes</option>
+                                            <option value="no">no</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input id="quantity" type="number" style="width:2cm">
+                                    </td>   
+                                    <td class="project-actions text-right">
+                                        <a id="confirm" class="btn btn-primary btn-sm" >
+                                            confirm
+                                        </a>
+                                        <a id="cancel1" class="btn btn-danger btn-sm" >
+                                            cancel
+                                        </a>
+
+                                    </td> 
+                                </tr> -->
+                                <tbody id="tablerow">
+                                    
+                                   <tr>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            <small> An amazing and handsome gents accessory, this Ronda Z60 Swiss watch
+                                                with a timeless bracelet design homes a striking 43 mm dial with a trio
+                                                of chronographs and slim hands powered by reliable quartz</small>
+                                        </td>
+                                        <td>
+                                            greca
+                                        </td>
+                                        <td>
+                                            5000
+                                        </td>
+                                        <td>
+                                            Versace
+                                        </td>
+                                       
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
+
+                </section>
+
+
+
+            </div>
+            <!-- /.content-wrapper -->
+
+            <% include ../layouts/footer.ejs %>
+
+                <!-- REQUIRED SCRIPTS -->
+
+                <!-- jQuery -->
+                <script src="/plugins/jquery/jquery.min.js"></script>
+                <script src="/javascripts/users/userdetails.js"></script>
+                <!-- Bootstrap -->
+                <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <!-- AdminLTE -->
+                <script src="/dist/js/adminlte.js"></script>
+
+                <!-- OPTIONAL SCRIPTS -->
+                <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
+                <!-- AdminLTE for demo purposes -->
+                <!-- <script src="dist/js/demo.js"></script> -->
+                <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
+</body>
+
+</html>

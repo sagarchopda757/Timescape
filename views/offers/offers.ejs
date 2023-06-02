@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timescape | admin panel</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+
+<body class="sidebar-mini">
+    <% include ../layouts/navbar.ejs %>
+
+
+
+        <% include ../layouts/sidebar.ejs %>
+            <!-- /.sidebar -->
+            </aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Offers</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+
+
+                           
+
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+                <section class="content">
+
+                    <!-- Default box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Offers</h3>
+
+                            <div class="card-tools">
+                                <button class="btn btn-block bg-gradient-primary float-right btn-sm" style="width: 300px;"
+                                id="add">ADD</button>
+
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped projects">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 1%">
+                                            id
+                                        </th>
+                                        <th style="width: 12%">
+                                            Name
+                                        </th>
+                                        <th style="width: 8%">
+                                            Apply On
+                                        </th>
+                                        <th style="width: 15%">
+                                            Offer Details
+                                        </th>
+                                        <th style="width: 8%">
+                                            Discount Type
+                                        </th>
+                                        <th style="width: 10%">
+                                            Discount Amount
+                                        </th>
+                                        <th style="width: 10%">
+                                            Display Order
+                                        </th>
+                                        <th style="width: 10%">
+                                            Offer From
+                                        </th>
+                                        <th style="width: 10%">
+                                            Offer Till
+                                        </th>
+                                        <th style="width: 20%">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tr id="addoffer" style="display: none;">
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                        <input id="name" type="text">
+                                    </td>
+                                    <td>
+                                        <select id="cat_id">
+                                           
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <textarea name="offer_details" id="offer_details" cols="30"
+                                            rows="2"></textarea>
+                                    </td>
+                                    <td>
+                                        <select id="discont_type">
+                                            <option value="fixvalue">fixvalue</option>
+                                            <option value="percentage">Percentage</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input id="discount_price" type="number">
+                                    </td>
+                                    <td>
+                                        <input id="offer_order" type="number">
+                                    </td>
+                                    <td>
+                                        <input id="offer_from" type="datetime-local">
+                                    </td>
+                                    <td>    
+                                        <input id="offer_till" type="datetime-local">
+                                    </td>
+                                    <td class="project-actions text-right">
+
+                                        <a id="confirm" class="btn btn-primary btn-sm" href="#">
+                                            confirm
+                                        </a>
+                                        <a id="cancel" class="btn btn-danger btn-sm" href="#">
+                                            cancel
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tbody id="tablerow" >
+                                    
+
+                                    <!-- <tr>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            <a>
+                                                40% OFF
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Created 01.01.2019
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Products
+                                        </td>
+                                        <td>
+                                            <small>40% off on all luxury products</small>
+                                        </td>
+                                        <td>
+                                            Amount
+                                        </td>
+                                        <td>
+                                            60
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            01-04-2023
+                                        </td>
+                                        <td>
+                                            15-4-2023
+                                        </td>
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <div id="prevpage"></div>
+                                    <div id="pagination1" style="display: flex;"></div>
+                                    <div id="nextpage"></div>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                </section>
+
+
+            </div>
+            <!-- /.content-wrapper -->
+
+            <% include ../layouts/footer.ejs %>
+
+            <!-- REQUIRED SCRIPTS -->
+
+            <!-- jQuery -->
+            <script src="/plugins/jquery/jquery.min.js"></script>
+            <script src="/javascripts/offers/offer.js"></script>
+            <script>
+
+                
+            </script>
+            <!-- Bootstrap -->
+            <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- AdminLTE -->
+            <script src="/dist/js/adminlte.js"></script>
+
+            <!-- OPTIONAL SCRIPTS -->
+           
+</body>
+
+</html>

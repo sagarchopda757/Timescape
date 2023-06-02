@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timescape | admin panel</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+
+<body class="sidebar-mini">
+    <% include ../layouts/navbar.ejs %>
+
+
+
+        <% include ../layouts/sidebar.ejs %>
+            <!-- /.sidebar -->
+            </aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <h1>Users</h1>
+                <section class="content">
+
+                    <!-- Default box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Projects</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped projects">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 1%">
+                                            id
+                                        </th>
+                                        <th style="width: 10%">
+                                            Name
+                                        </th>
+                                        <th style="width: 15%">
+                                            Email
+                                        </th>
+                                        <th style="width: 5%">
+                                            Gender
+                                        </th>
+                                        <th style="width: 10%">
+                                            Mobile No
+                                        </th>
+                                        <th style="width: 5%">
+                                            Status
+                                        </th>
+                                        <th style="width: 20%">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablerow">
+                                    <% for (let i=0; i < rows.length; i++) {%>
+                                        <% if (rows[i].user_status=='active' ) {%>
+                                            <% badge="badge-success" %>
+                                                <% } else {%>
+                                                    <% badge="badge-danger" %>
+                                                        <% }%>
+                                                            <tr>
+                                                                <td>
+                                                                    <%i+1%>
+                                                                </td>
+                                                                <td>
+                                                                    <a>
+                                                                        <%=rows[i].name%>
+                                                                    </a>
+                                                                    <br />
+                                                                    <small>
+                                                                        <%=rows[i].createdAt%>
+                                                                    </small>
+                                                                </td>
+                                                                <td>
+                                                                    <%=rows[i].email%>
+                                                                </td>
+                                                                <td>
+                                                                    <%=rows[i].gender%>
+                                                                </td>
+                                                                <td>
+                                                                    <%=rows[i].mobileno%>
+                                                                </td>
+
+                                                                <td>
+                                                                    <a onclick="return confirm('change status');"
+                                                                        href="/api/changeuserstatus/<%=rows[i].id%>"
+                                                                        class="badge <%=badge%>">
+                                                                        <%=rows[i].user_status%>
+                                                                    </a>
+                                                                </td>
+                                                                <td class="project-actions text-right">
+                                                                    <a class="btn btn-primary btn-sm"
+                                                                        href="/userdetails/<%=rows[i].id%>">
+                                                                        <i class="fas fa-folder">
+                                                                        </i>
+                                                                        View
+                                                                    </a>
+                                                                    <a class="btn btn-danger btn-sm"
+                                                                        href="/api/deleteusers/<%=rows[i].id%>">
+                                                                        <i class="fas fa-trash">
+                                                                        </i>
+                                                                        Delete
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            <%}%>
+                                </tbody>
+                            </table>
+                            <nav aria-label="...">
+                                <% let button = Math.ceil(count/10) %>
+                                    <ul class="pagination">
+                                        <% if (page <=1 ) { %>
+                                            <li class="page-item disabled">
+                                                <a id="prevpage1" class="page-link" tabindex="-1">Previous</a>
+                                            </li>
+                                            <% } else {%>
+                                                <li class="page-item">
+                                                    <a id="prevpage1" class="page-link" tabindex="-1"
+                                                        href="/products/?page=<%=Number(page) - 1%>">Previous</a>
+                                                </li>
+                                                <% } %>
+
+
+                                                    <% for (let i=0; i < button; i++) {%>
+                                                        <li class="page-item "><a class="page-link"
+                                                                href="/products/?page=<%= i+1 %>">
+                                                                <%= i+1 %>
+                                                            </a></li>
+                                                        <%}%>
+
+
+
+                                                            <% if (button> page) { %>
+                                                                <li class="page-item ">
+                                                                    <a id="nextpage1" class="page-link"
+                                                                        href="/users/?page=<%=Number(page) + 1%>">Next</a>
+                                                                </li>
+                                                                <% } else {%>
+                                                                    <li class="page-item disabled">
+                                                                        <a id="nextpage1" class="page-link">Next</a>
+                                                                    </li>
+                                                                    <% } %>
+                                    </ul>
+                            </nav>        
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                </section>
+
+
+            </div>
+            <!-- /.content-wrapper -->
+
+
+            <% include ../layouts/footer.ejs %>
+                <!-- REQUIRED SCRIPTS -->
+
+                <!-- jQuery -->
+                <script src="/plugins/jquery/jquery.min.js"></script>
+                <!-- <script src="/javascripts/users/users.js"></script> -->
+                <!-- Bootstrap -->
+                <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <!-- AdminLTE -->
+                <script src="/dist/js/adminlte.js"></script>
+
+                <!-- OPTIONAL SCRIPTS -->
+                <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
+                <!-- AdminLTE for demo purposes -->
+                <!-- <script src="dist/js/demo.js"></script> -->
+                <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+                <!-- <script src="dist/js/pages/dashboard3.js"></script> -->
+</body>
+
+</html>

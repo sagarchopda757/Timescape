@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timescape | admin panel</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
+  <!-- IonIcons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+
+<body class="sidebar-mini">
+  <% include ../layouts/navbar.ejs %>
+
+
+
+    <% include ../layouts/sidebar.ejs %>
+      <!-- /.sidebar -->
+      </aside>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Edit Category</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+
+
+
+
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+
+        <section class="content">
+          <div class="row">
+            <div class="col-md-4  ">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Edit Category</h3>
+                </div>
+                <div class="card-body">
+
+                  <div class="form-group">
+                    <label for="inputName">Category Name</label>
+                    <input type="text" id="categoryname" class="form-control" value='<%=data.cat_name%>'>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName">Image</label><br>
+                    <li class="list-inline-item">
+                      <img id="cat_image" alt="Avatar" class="table-avatar"
+                        src="/images/categories_images/<%=data.cat_image %>">
+                    </li><br>
+                    <input type="file" id="image" class="form-control">
+                  </div>
+                  <!-- <div class="form-group">
+                              <label for="inputName">Category Status</label><br>
+                              <select id="categorystatus" class="form-control" >
+                                <option value="active">active</option>
+                                <option value="inactive">inactive</option>
+                            </select>
+                            </div> -->
+
+                  <div class="row">
+                    <div class="col-12 project-actions text-right">
+                      <a id="confirm" type="submit" class="btn btn-primary btn-sm">
+                        confirm
+                      </a>
+                      <a id="cancel" class="btn btn-danger btn-sm" href="/categories">
+                        cancel
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
+          </div>
+
+        </section>
+
+
+
+      </div>
+      <!-- /.content-wrapper -->
+
+      <% include ../layouts/footer.ejs %>
+
+        <!-- REQUIRED SCRIPTS -->
+
+        <!-- jQuery -->
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <script>
+          console.log('akfhdfiuldfls <%=data.id %>');
+          $(document).ready(function () {
+            $("#confirm").click(function () {
+              var formdata = new FormData()
+
+              formdata.append("categoryname", $("#categoryname").val())
+              formdata.append("image", $("#image")[0].files[0])
+              //formdata.append("categorystatus", $("#categorystatus").val())
+
+              $.ajax({
+                type: "POST",
+                url: '/api/updateeditcategories/<%=data.id %>',
+                contentType: false,
+                processData: false,
+                data: formdata,
+
+              }).done(function (data) {
+                event.preventDefault();
+                console.log(data);
+                if (data.sts) {
+                  window.location.href = "/categories"
+
+                } else {
+                  window.location.reload()
+                }
+
+              })
+            });
+          })
+        </script>
+       
+        <!-- Bootstrap -->
+        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE -->
+        <script src="/dist/js/adminlte.js"></script>
+
+        <!-- OPTIONAL SCRIPTS -->
+        <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
+        <!-- AdminLTE for demo purposes -->
+        <!-- <script src="dist/js/demo.js"></script> -->
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
+</body>
+
+</html>

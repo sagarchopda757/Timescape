@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timescape | admin panel</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+
+<body class="sidebar-mini">
+
+    <% include ../layouts/navbar.ejs %>
+
+
+
+        <% include ../layouts/sidebar.ejs %>
+            <!-- /.sidebar -->
+            </aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Categories</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+
+
+
+
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+
+
+
+
+
+                <section class="content">
+
+                    <!-- Default box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Categories</h3>
+
+
+                            <div class="card-tools" style="display: flex;">
+                                <div style="margin-right: 10px; margin-top:8px;">
+                                    <form action="/api/getcategories" action="get">
+
+                                        <div class="input-group" style="width:max-content;">
+                                            <input type="search" id="searchfield" name="searchfield" class="form-control form-control-sm"
+                                                placeholder="Type your keywords ">
+                                            <div class="input-group-append">
+                                                <button type="submit" id="searchbtn" class="btn btn-sm btn-default">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <button class="btn btn-block bg-gradient-primary float-right btn-sm"
+                                    style="width: 300px;" id="add">ADD</button>
+
+
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped projects">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 1%">
+                                            id
+                                        </th>
+                                        <th style="width: 20%">
+                                           Name
+                                        </th>
+                                        <th style="width: 30%">
+                                           Image
+                                        </th>
+                                        <th style="width: 8%" class="text-center">
+                                            Status
+                                        </th>
+                                       
+                                        <th style="width: 20%">
+                                            
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tr id="addcategories" style="display: none;">
+                                    <td></td>
+                                    <td><input type="text" id="categoryname" placeholder="enter category name"
+                                            class="form-control"> </td>
+                                    <td><input type="file" id="image" class="form-control"></td>
+                                    <td><select id="categorystatus" class="form-control">
+                                            <option value="active">active</option>
+                                            <option value="inactive">inactive</option>
+                                        </select>
+                                    </td>
+
+                                    <td class="project-actions text-right">
+                                        <a onclick="return confirm('do you want to add category');" id="confirm"
+                                            class="btn btn-primary btn-sm">
+                                            confirm
+                                        </a>
+                                        <a id="cancel" class="btn btn-danger btn-sm" >
+                                            cancel
+                                        </a>
+
+                                    </td>
+                                </tr>
+                                <tbody id="tablerow">
+                                    <% for (let i=0; i < rows.length; i++) {%>
+                                        <% if (rows[i].cat_status=='active' ) {%>
+                                            <% badge="badge-success" %>
+                                                <% } else {%>
+                                                    <% badge="badge-danger" %>
+                                                        <% }%>
+                                                            <tr>
+                                                                <td>
+                                                                    <%= i+1 %>
+                                                                </td>
+                                                                <td>
+                                                                    <a>
+                                                                        <%= rows[i].cat_name %>
+                                                                    </a>
+                                                                    <br />
+                                                                    <small>
+                                                                        <%= rows[i].createdAt %>
+                                                                    </small>
+                                                                </td>
+                                                                <td>
+
+                                                                    <li class="list-inline-item">
+                                                                        <img alt="Avatar" class="table-avatar"
+                                                                            src="/images/categories_images/<%= rows[i].cat_image %>">
+                                                                    </li>
+
+                                                                </td>
+                                                                <td class="project-state">
+                                                                    <a onclick="return confirm('change status');"
+                                                                        href="/api/changecategorystatus/<%=rows[i].id%>"
+                                                                        class="badge <%=badge%>">
+                                                                        <%= rows[i].cat_status%>
+                                                                    </a>
+                                                                </td>
+                                                                <td class="project-actions text-right">
+
+                                                                    <a id="editcategories" class="btn btn-info btn-sm"
+                                                                        href="/editcategories?id=<%=rows[i].id%>">
+                                                                        <i class="fas fa-pencil-alt">
+                                                                        </i>
+                                                                        Edit
+                                                                    </a>
+                                                                    <a id="delete" class="btn btn-danger btn-sm"
+                                                                        onclick="return confirm('do you want to delete category');"
+                                                                        href="/api/deletecategories?id=<%=rows[i].id%>">
+                                                                        <i class="fas fa-trash">
+                                                                        </i>
+                                                                        Delete
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+
+                                                            <%} %>
+
+                                                                <!-- <tr>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            <a>
+                                                Luxury
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Created 01.01.2019
+                                            </small>
+                                        </td>
+                                        <td>
+
+                                            <li class="list-inline-item">
+                                                <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
+                                            </li>
+
+                                        </td>
+                                        <td class="project-state">
+                                            <span class="badge badge-success">active</span>
+                                        </td>
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>  -->
+                                </tbody>
+                            </table>
+                            <nav aria-label="...">
+                                <% let button=Math.ceil(count/10) %>
+                                
+                                    <ul class="pagination">
+                                        
+                                            <% if (page <= 1  ) { %>
+                                                <li class="page-item disabled">
+                                                     <a id="prevpage1" class="page-link"  tabindex="-1" >Previous</a>
+                                                 </li>
+                                               <% } else {%>
+                                                <li class="page-item">
+                                                     <a id="prevpage1" class="page-link"  tabindex="-1" href="/categories?page=<%=Number(page) - 1%>">Previous</a>
+                                                     </li>
+                                                <% } %>
+                                       
+                                        
+                                            <% for (let i=0; i < button; i++) {%>
+                                                <li class="page-item "><a class="page-link"
+                                                        href="/categories?page=<%= i+1 %>">
+                                                        <%= i+1 %>
+                                                    </a></li>
+                                                <%}%>
+                                     
+                                        
+                                            
+                                            <% if (button > page) { %>
+                                                <li class="page-item ">
+                                                    <a id="nextpage1" class="page-link" href="/categories?page=<%=Number(page) + 1%>">Next</a>
+                                                </li>
+                                            <% } else {%>
+                                                <li class="page-item disabled">
+                                                    <a id="nextpage1" class="page-link">Next</a>
+                                                </li>
+                                             <% } %>
+                                                
+                                        
+                                    </ul>
+                                 
+                            </nav>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                </section>
+
+            </div>
+            <!-- /.content-wrapper -->
+            <% include ../layouts/footer.ejs %>
+
+
+
+                <!-- REQUIRED SCRIPTS -->
+
+                <!-- jQuery -->
+                <script src="/plugins/jquery/jquery.min.js"></script>
+                <script src="/javascripts/categories/categories.js"></script>
+               <script>
+                
+               </script>
+                <!-- Bootstrap -->
+                <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <!-- AdminLTE -->
+                <script src="/dist/js/adminlte.js"></script>
+
+                <!-- OPTIONAL SCRIPTS -->
+
+</body>
+
+</html>

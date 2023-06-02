@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timescape | admin panel</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+
+<body class="sidebar-mini">
+    <% var sort=sort%>
+    <% var order=order%>
+    <% var page=page%>
+            <% include ../layouts/navbar.ejs %>
+
+
+
+                <% include ../layouts/sidebar.ejs %>
+                    <!-- /.sidebar -->
+                    </aside>
+                    <!-- Content Wrapper. Contains page content -->
+                    <div class="content-wrapper">
+                        <h1>Color</h1>
+                        <section class="content">
+
+                            <!-- Default box -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Color</h3>
+
+                                    <div class="card-tools">
+                                        <button class="btn btn-block bg-gradient-primary float-right btn-sm"
+                                            style="width: 300px;" id="add">ADD</button>
+
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <table class="table table-striped projects">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 1%">
+                                                    <a id="colorid">id</a>
+
+                                                </th>
+                                                <th style="width: 30%">
+                                                    color
+                                                </th>
+
+                                                <th style="width: 30%">
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tr id="addcolor" style="display: none;">
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <div class="input-group my-colorpicker2" data-colorpicker-id="2">
+                                                    <input id="hexcode" type="text" class="form-control">
+
+                                                    <div class="input-group-append">
+
+                                                        <span class="input-group-text"><input type="color"
+                                                                id="colorcode"></span>
+                                                        <button id="click" class="form-control">select</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="project-actions text-right">
+
+                                                <a id="confirm" class="btn btn-primary btn-sm" href="#">
+                                                    confirm
+                                                </a>
+                                                <a id="cancel" class="btn btn-danger btn-sm" href="#">
+                                                    cancel
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tbody id="tablerow">
+                                            <!-- <tr>
+                                        <td>
+                                            1
+                                        </td>
+                                        
+                                        <td>
+                                            <div class="input-group my-colorpicker2" data-colorpicker-id="2">
+                                                <input type="text" class="form-control">
+                            
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text"><i class="fas fa-square" style="color: aqua;"></i></span>
+                                                </div>
+                                              </div>
+                                        </td>
+
+
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr> -->
+                                        </tbody>
+                                    </table>
+
+                                    <nav aria-label="...">
+                                        <ul class="pagination">
+                                            <div id="prevpage"></div>
+                                            <div id="pagination1" style="display: flex;"></div>
+                                            <div id="nextpage"></div>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+
+                        </section>
+
+                    </div>
+                    <!-- /.content-wrapper -->
+                    <% include ../layouts/footer.ejs %>
+
+
+
+                        <!-- REQUIRED SCRIPTS -->
+
+                        <!-- jQuery -->
+                        <script src="/plugins/jquery/jquery.min.js"></script>
+                        <!-- <script src="/javascripts/color/color.js"></script> -->
+
+                        <script>
+
+                            $(document).ready(function () {
+                                var sort = "<%= sort%>"
+                                var order = "<%= order%>"
+                                var page = '<%= page%>'
+                                console.log('sort >>>>>>>>>>>>>>>>>>>>>', sort);
+                                console.log('order >>>>>>>>>>>>>>>>>>>>>', order);
+                                console.log('page >>>>>>>>>>>>>>>>>>>>>', page);
+
+
+                                $("#add").click(function () {
+                                    $("#addcolor").show();
+                                });
+                                $("#confirm").click(function () {
+                                    $("#addcolor").hide();
+                                });
+                                $('#cancel').click(function () {
+                                    $('#addcolor').hide();
+                                })
+                                // _______________________________________________get hex value in input
+                                $("#click").on("click", () => {
+
+                                    document.querySelector('#hexcode').value = $('#colorcode').val()
+                                })
+                                const pathname = window.location.pathname.split('/')
+                                const id = Number(pathname[pathname.length - 1])
+                                //console.log('id >>>>>>>>>>>>>>>>>',id);
+                                // ___________________________________________get colors 
+                                $.ajax({
+                                    type: 'GET',
+                                    url: `/api/getcolor/${id}`,
+                                    data: { sort: sort, order: order,page:page }
+                                }).done(function (data) {
+                                    console.log(data);
+                                    if (data.sts) {
+                                        tabledata = ''
+
+                                        for (let i = 0; i < data.data.rows.length; i++) {
+                                            tabledata += ` <tr>
+            <td>
+                ${data.data.rows[i].color_id}
+            </td>
+            
+            <td>
+
+           
+                <div class="input-group my-colorpicker2" data-colorpicker-id="2">
+                <a type="text" class="form-control">${data.data.rows[i].color_code}</a>
+
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="fas fa-square" style="color: ${data.data.rows[i].color_code}"></i></span>
+                    </div>
+                  </div>
+            </td>
+
+
+            <td class="project-actions text-right">
+                
+                <a class="btn btn-info btn-sm" href="#">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    Edit
+                </a>
+                <a class="btn btn-danger btn-sm" href="/api/deletecolor/${data.data.rows[i].color_id}">
+                    <i class="fas fa-trash">
+                    </i>
+                    Delete
+                </a>
+            </td>
+        </tr>`
+
+        }
+
+                                        $('#tablerow').html(tabledata)
+
+
+                                        // ___________________________________________________pagination    
+                                        let button = Math.ceil(data.data.count / 10)
+
+                                        if (Number(data.data.page) <= 1) {
+                                            prevpage = `<li class="page-item disabled">
+                        <a id="prevpage1" class="page-link"  tabindex="-1">Previous</a>
+                        </li>`
+                                        } else {
+                                            prevpage = `<li class="page-item">
+                <a id="prevpage1" class="page-link"  tabindex="-1">Previous</a>
+                </li>`
+                                        }
+
+                                        $('#prevpage').html(prevpage)
+                                        if (button - 1 >= id) {
+                                            nextpage = ` <li class="page-item ">
+                        <a id="nextpage1" class="page-link" >Next</a>
+                        </li>`
+                                        } else {
+                                            nextpage = ` <li class="page-item disabled">
+                <a id="nextpage1" class="page-link" >Next</a>
+                </li>`
+                                        }
+
+                                        $('#nextpage').html(nextpage)
+                                        pagebutton = ''
+                                        for (let i = 0; i < button; i++) {
+                                            pagebutton += `<li class="page-item "><a class="page-link" href="/color/?page=${i + 1}">${i + 1}</a></li>`
+                                        }
+                                        $('#pagination1').html(pagebutton)
+
+                                        document.querySelector('#prevpage1').href = `/color/?page=${Number(data.data.page) - 1}`
+                                        document.querySelector('#nextpage1').href = `/color/?page=${Number(data.data.page) + 1}`
+                                        // _______________________________________sorting 
+
+                                        document.querySelector('#colorid').href = `/color/?sort=color_id&order=asc&page=${page}`
+
+
+                                        if (order === 'asc') {
+                                            document.querySelector('#colorid').href = `/color/?sort=color_id&order=desc&page=${page}`
+                                        }
+                                        if (order === 'desc') {
+                                            document.querySelector('#colorid').href = `/color/?sort=color_id&order=asc&page=${page}`
+                                        }
+
+                                    } else {
+                                        alert(data.msg)
+                                    }
+                                })
+
+                                $("#confirm").click(function () {
+                                    data = {
+                                        color_code: $('#hexcode').val()
+                                    }
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/api/addcolor',
+                                        data: data
+                                    }).done(function (data) {
+                                        if (data.sts) {
+                                            window.location.reload()
+                                        } else {
+                                            alert(data.msg)
+                                        }
+                                    })
+                                });
+
+
+                            })
+                        </script>
+
+                        <!-- Bootstrap -->
+                        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+                        <!-- AdminLTE -->
+                        <script src="/dist/js/adminlte.js"></script>
+
+                        <!-- OPTIONAL SCRIPTS -->
+
+
+</body>
+
+</html>

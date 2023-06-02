@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timescape | admin panel</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+
+<body class="sidebar-mini">
+    <% include ../layouts/navbar.ejs %>
+
+
+
+        <% include ../layouts/sidebar.ejs %>
+            <!-- /.sidebar -->
+            </aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Edit Product Details</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+
+                <section class="content">
+                    <div class="row">
+                        <div class="col-md-4  ">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Edit Product Details</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="inputName">Color</label>
+                                        <select id="color_id" class="form-control">
+                                            <option value="<%=data.color_id%>"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputName">Image</label><br>
+                                        <li class="list-inline-item">
+                                            <img id="image" alt="product image" class="table-avatar"
+                                                src="/images/product_images/<%=data.image%>">
+                                        </li><br>
+                                        <input id="image1" type="file" class="form-control">
+
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label for="inputName">Banner</label><a>
+                                            <%=data.banner%>
+                                        </a>
+                                        <select id="banner" class="form-control">
+                                            <option value="yes">yes</option>
+                                            <option value="no">no</option>
+                                        </select>
+
+                                    </div> -->
+                                    <div class="form-group">
+                                        <label for="inputName">Quantity</label><br>
+                                        <input id="quantity" type="number" class="form-control"
+                                            value="<%=data.quantity%>">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 project-actions text-right">
+                                            <a id="confirm" class="btn btn-primary btn-sm">
+                                                confirm
+                                            </a>
+                                            <a id="cancel" class="btn btn-danger btn-sm"
+                                                href="/productsdetails?id=<%=data.prod_id%>">
+                                                cancel
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                    </div>
+
+                </section>
+
+
+
+            </div>
+            <!-- /.content-wrapper -->
+
+            <% include ../layouts/footer.ejs %>
+
+                <!-- REQUIRED SCRIPTS -->
+
+                <!-- jQuery -->
+                <script src="/plugins/jquery/jquery.min.js"></script>
+                <!-- <script src="/javascripts/products/editproductsdetails.js"></script> -->
+                <script>
+                    console.log('<%=data.prod_id%>');
+                    $(document).ready(function () {
+                        $('#confirm').click(function () {
+                            var formdata = new FormData()
+
+                            formdata.append("color_id", $("#color_id").val())
+                            formdata.append("image", $("#image1")[0].files[0])
+                            formdata.append("banner", $("#banner").val())
+                            formdata.append("quantity", $("#quantity").val())
+                            $.ajax({
+                                type: "POST",
+                                url: `/api/updateeditproductsdetails?id=<%=data.id%>&prod_id=<%=data.prod_id%>`,
+                                contentType: false,
+                                processData: false,
+                                data: formdata
+                            }).done((data) => {
+                                if (data.sts) {
+                                    alert(data.msg)
+                                    window.location.href = `/productsdetails?id=<%=data.prod_id%>`
+
+                                } else {
+                                    alert(data.msg)
+                                }
+                            })
+
+                        })
+                    })
+                </script>
+                <!-- Bootstrap -->
+                <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <!-- AdminLTE -->
+                <script src="/dist/js/adminlte.js"></script>
+
+                <!-- OPTIONAL SCRIPTS -->
+                <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
+                <!-- AdminLTE for demo purposes -->
+                <!-- <script src="dist/js/demo.js"></script> -->
+                <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
+</body>
+
+</html>
